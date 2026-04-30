@@ -122,41 +122,6 @@ uint8 gameProcessPirateCheck = 0;
 
 bool DoRWStuffStartOfFrame(int16 TopRed, int16 TopGreen, int16 TopBlue, int16 BottomRed, int16 BottomGreen, int16 BottomBlue, int16 Alpha);
 void DoRWStuffEndOfFrame(void);
-#ifdef PS2_MENU
-void MessageScreen(char *msg)
-{
-	//TODO: stretch_screen
-	
-	CRect rect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-	CRGBA color(255, 255, 255, 255);
-
-	DoRWStuffStartOfFrame(50, 50, 50, 0, 0, 0, 255);
-	
-	CSprite2d::InitPerFrame();
-	CFont::InitPerFrame();
-	DefinedState();
-
-	CSprite2d *splash = LoadSplash(NULL);
-	splash->Draw(rect, color, color, color, color);
-	splash->DrawRect(CRect(SCREEN_SCALE_X(20.0f), SCREEN_SCALE_Y(110.0f), SCREEN_SCALE_X(620.0f), SCREEN_SCALE_Y(300.0f)), CRGBA(50, 50, 50, 192));
-	
-	CFont::SetFontStyle(FONT_BANK);
-	CFont::SetBackgroundOff();
-	CFont::SetWrapx(SCREEN_SCALE_FROM_RIGHT(190.0f)); // 450.0f
-	CFont::SetScale(SCREEN_SCALE_X(1.0f), SCREEN_SCALE_Y(1.0f));
-	CFont::SetCentreOn();
-	CFont::SetCentreSize(SCREEN_SCALE_X(450.0f));
-	CFont::SetJustifyOff();
-	CFont::SetColor(CRGBA(255, 255, 255, 255));
-	CFont::SetDropColor(CRGBA(32, 32, 32, 255));
-	CFont::SetDropShadowPosition(3);
-	CFont::SetPropOn();
-	CFont::PrintString(SCREEN_SCALE_X(320.0f), SCREEN_SCALE_Y(130.0f), TheText.Get(msg));
-	CFont::DrawFonts();
-	
-	DoRWStuffEndOfFrame();
-}
-#endif
 
 bool
 CGame::InitialiseOnceBeforeRW(void)
@@ -538,14 +503,10 @@ bool CGame::Initialise(const char* datFile)
 	CReplay::Init();
 
 	LoadingScreen("Loading the Game", "Start script", nil);
-#ifdef PS2_MENU
-	if ( !TheMemoryCard.m_bWantToLoad )
-#endif
-	{
-		CTheScripts::StartTestScript();
-		CTheScripts::Process();
-		TheCamera.Process();
-	}
+
+	CTheScripts::StartTestScript();
+	CTheScripts::Process();
+	TheCamera.Process();
 
 	LoadingScreen("Loading the Game", "Load scene", nil);
 	CCollision::ms_collisionInMemory = currLevel;
@@ -633,13 +594,10 @@ bool CGame::ShutDown(void)
 void CGame::ReInitGameObjectVariables(void)
 {
 	CGameLogic::InitAtStartOfGame();
-#ifdef PS2_MENU
-	if ( !TheMemoryCard.m_bWantToLoad )
-#endif
-	{
-		TheCamera.Init();
-		TheCamera.SetRwCamera(Scene.camera);
-	}
+
+	TheCamera.Init();
+	TheCamera.SetRwCamera(Scene.camera);
+
 	CDebug::DebugInitTextBuffer();
 	CWeather::Init();
 	CUserDisplay::Init();
@@ -694,11 +652,7 @@ void CGame::ReInitGameObjectVariables(void)
 	CScriptPaths::Init();
 	CParticle::ReloadConfig();
 
-#ifdef PS2_MENU
-	if ( !TheMemoryCard.m_bWantToLoad )
-#else
 	if ( !FrontEndMenuManager.m_bWantToLoad )
-#endif
 	{
 		CCranes::InitCranes();
 		CTheScripts::StartTestScript();

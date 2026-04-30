@@ -1,8 +1,5 @@
 #ifndef __GTA_FRONTEND_H__
 #define __GTA_FRONTEND_H__
-#ifdef PS2_MENU
-#include "Frontend_PS2.h"
-#else
 
 #include "Sprite2d.h"
 #include "Timer.h"
@@ -869,7 +866,5 @@ VALIDATE_SIZE(CMenuManager, 0x688);
 #endif
 
 extern CMenuManager FrontEndMenuManager;
-
-#endif
 
 #endif // __GTA_FRONTEND_H__

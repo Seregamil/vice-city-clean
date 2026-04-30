@@ -248,27 +248,14 @@ DoFade(void)
 	if(CTimer::GetIsPaused())
 		return;
 
-#ifdef PS2_MENU
-	if(TheMemoryCard.JustLoadedDontFadeInYet){
-		TheMemoryCard.JustLoadedDontFadeInYet = false;
-		TheMemoryCard.TimeStartedCountingForFade = CTimer::GetTimeInMilliseconds();
-	}
-#else
 	if(JustLoadedDontFadeInYet){
 		JustLoadedDontFadeInYet = false;
 		TimeStartedCountingForFade = CTimer::GetTimeInMilliseconds();
 	}
-#endif
 
-#ifdef PS2_MENU
-	if(TheMemoryCard.StillToFadeOut){
-		if(CTimer::GetTimeInMilliseconds() - TheMemoryCard.TimeStartedCountingForFade > TheMemoryCard.TimeToStayFadedBeforeFadeOut){
-			TheMemoryCard.StillToFadeOut = false;
-#else
 	if(StillToFadeOut){
 		if(CTimer::GetTimeInMilliseconds() - TimeStartedCountingForFade > TimeToStayFadedBeforeFadeOut){
 			StillToFadeOut = false;
-#endif
 			TheCamera.Fade(3.0f, FADE_IN);
 			TheCamera.ProcessFade();
 			TheCamera.ProcessMusicFade();
@@ -1596,11 +1583,6 @@ Idle(void *arg)
 	tbStartTimer(0, "RenderMenus");
 	RenderMenus();
 	tbEndTimer("RenderMenus");
-
-#ifdef PS2_MENU
-	if ( TheMemoryCard.m_bWantToLoad )
-		goto popret;
-#endif
 
 	tbStartTimer(0, "DoFade");
 	DoFade();
