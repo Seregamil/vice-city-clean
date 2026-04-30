@@ -241,7 +241,7 @@ public:
 	uint8 bRestingOnPhysical : 1; // Dont go static cause car is sitting on a physical object that might get removed
 	uint8 bParking : 1;
 	uint8 bCanPark : 1;
-#if (!defined GTA_PS2 || defined FIX_BUGS)
+#if (defined FIX_BUGS)
 	uint8 m_bombType : 3;
 #endif
 	uint8 bDriverLastFrame : 1;
@@ -253,7 +253,7 @@ public:
 	float m_fHealth;           // 1000.0f = full health. 250.0f = fire. 0 -> explode
 	uint8 m_nCurrentGear;
 	float m_fChangeGearTime;
-#if (!defined GTA_PS2 || defined FIX_BUGS)
+#if (defined FIX_BUGS)
 	CEntity* m_pBombRigger;
 #endif
 	uint32 m_nSetPieceExtendedRangeTime;

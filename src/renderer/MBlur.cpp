@@ -336,10 +336,6 @@ CMBlur::MotionBlurRender(RwCamera *cam, uint32 red, uint32 green, uint32 blue, u
 #else
 	PUSH_RENDERGROUP("CMBlur::MotionBlurRender");
 	RwRGBA color = { (RwUInt8)red, (RwUInt8)green, (RwUInt8)blue, (RwUInt8)blur };
-#ifdef GTA_PS2
-	if( pFrontBuffer )
-		OverlayRender(cam, pFrontBuffer, color, type, bluralpha);
-#else
 	if(ms_bJustInitialised)
 		ms_bJustInitialised = false;
 	else
@@ -349,7 +345,6 @@ CMBlur::MotionBlurRender(RwCamera *cam, uint32 red, uint32 green, uint32 blue, u
 		RwRasterRenderFast(RwCameraGetRaster(cam), 0, 0);
 		RwRasterPopContext();
 	}
-#endif
 	POP_RENDERGROUP();
 #endif
 }

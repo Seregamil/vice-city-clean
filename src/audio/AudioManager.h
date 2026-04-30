@@ -21,11 +21,9 @@ public:
 	uint8 m_nVolume;			// Sound volume (0..127), only used as an actual volume without EXTERNAL_3D_SOUND (see m_nEmittingVolume)
 	float m_fDistance;			// Distance to camera (useless if m_bIs2D == TRUE)
 	uint32 m_nLoopCount;		// 0 - always loop, 1 - don't loop, other values never seen
-#ifndef GTA_PS2
 	// Loop offsets
 	uint32 m_nLoopStart;
 	int32 m_nLoopEnd;
-#endif
 #ifdef EXTERNAL_3D_SOUND
 	uint8 m_nEmittingVolume;	// The volume in 3D space, provided to 3D audio engine
 #endif
@@ -33,7 +31,7 @@ public:
 	float m_MaxDistance;		// The maximum distance at which sound could be heard. Minimum distance = MaxDistance / 5 or MaxDistance / 4 in case of emitting volume (useless if m_bIs2D == TRUE)
 	bool8 m_bStatic;			// If TRUE then sound parameters cannot be changed during playback (frequency, position, etc.)
 	CVector m_vecPos;			// Position of sound in 3D space. Unused if m_bIs2D == TRUE
-#if !defined(GTA_PS2) || defined(AUDIO_REVERB) // GTA_PS2 because this field exists on mobile but not on PS2
+#if defined(AUDIO_REVERB) // GTA_PS2 because this field exists on mobile but not on PS2
 	bool8 m_bReverb;			// Toggles reverb effect
 #endif
 #ifdef AUDIO_REFLECTIONS
@@ -350,9 +348,6 @@ public:
 	void ClearRequestedQueue(); // inlined in vc
 	void ClearActiveSamples();
 	void GenerateIntegerRandomNumberTable();
-#ifdef GTA_PS2
-	void LoadBankIfNecessary(uint8 bank); // this is used only on PS2 but technically not a platform code
-#endif
 
 #ifdef EXTERNAL_3D_SOUND // actually must have been && AUDIO_MSS as well
 	void AdjustSamplesVolume(); // inlined
@@ -609,17 +604,13 @@ public:
    Setting these manually was pointless anyway since they never change from sdt values.
    What were they thinking?
 */
-#ifndef GTA_PS2
 #define RESET_LOOP_OFFSETS \
 	m_sQueueSample.m_nLoopStart = 0; \
 	m_sQueueSample.m_nLoopEnd = -1;
 #define SET_LOOP_OFFSETS(sample) \
 	m_sQueueSample.m_nLoopStart = SampleManager.GetSampleLoopStartOffset(sample); \
 	m_sQueueSample.m_nLoopEnd = SampleManager.GetSampleLoopEndOffset(sample);
-#else
-#define RESET_LOOP_OFFSETS
-#define SET_LOOP_OFFSETS(sample)
-#endif
+
 #ifdef EXTERNAL_3D_SOUND
 #define SET_EMITTING_VOLUME(vol) m_sQueueSample.m_nEmittingVolume = vol
 #else

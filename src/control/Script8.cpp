@@ -394,7 +394,6 @@ int8 CRunningScript::ProcessCommands1400To1499(int32 command)
 		UpdateCompareFlag(false);
 #endif
 		return 0;
-#elif (!defined GTA_PS2)
 	case COMMAND_SET_ONSCREEN_COUNTER_FLASH_WHEN_FIRST_DISPLAYED:
 	{
 		script_assert(CTheScripts::ScriptSpace[m_nIp++] == ARGUMENT_GLOBALVAR);
