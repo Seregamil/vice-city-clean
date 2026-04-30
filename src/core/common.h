@@ -160,31 +160,14 @@ inline uint32 ldb(uint32 p, uint32 s, uint32 w)
 		#define DEFAULT_SCREEN_WIDTH  (640)
 		#define DEFAULT_SCREEN_HEIGHT (480)
 	#endif
-#elif defined(GTA_PS2)
-		#define DEFAULT_SCREEN_WIDTH  (640)
-		#define DEFAULT_SCREEN_HEIGHT (480)
-#else //elif defined(GTA_PC)
-		#define DEFAULT_SCREEN_WIDTH  (640)
-		#define DEFAULT_SCREEN_HEIGHT (448)
 #endif
 
 #define DEFAULT_ASPECT_RATIO (4.0f/3.0f)
 #define DEFAULT_VIEWWINDOW (0.7f)
 
 // game uses maximumWidth/Height, but this probably won't work
-// with RW windowed mode
-#ifdef GTA_PS2
-	#ifdef GTA_PAL
-		#define SCREEN_WIDTH  ((float)640)
-		#define SCREEN_HEIGHT ((float)512)
-	#else
-		#define SCREEN_WIDTH  ((float)640)
-		#define SCREEN_HEIGHT ((float)448)
-	#endif
-#else
 #define SCREEN_WIDTH  ((float)RsGlobal.width)
 #define SCREEN_HEIGHT ((float)RsGlobal.height)
-#endif
 
 #define SCREEN_HEIGHT_PAL ((float)512)
 #define SCREEN_HEIGHT_NTSC ((float)448)
@@ -220,12 +203,7 @@ inline uint32 ldb(uint32 p, uint32 s, uint32 w)
 
 #include "maths.h"
 #include "Vector.h"
-#ifdef GTA_PS2
-#include "VuVector.h"
-#define CVUVECTOR CVuVector
-#else
 #define CVUVECTOR CVector
-#endif
 #include "Vector2D.h"
 #include "Matrix.h"
 #include "Rect.h"
@@ -371,7 +349,7 @@ __inline__ void TRACE(char *f, ...) { } // this is re3 only, and so the function
 #endif
 #define ASSERT assert
 
-#if defined(__MWERKS__) || defined(GTA_PS2)
+#if defined(__MWERKS__)
 #define static_assert(bool_constexpr, message)
 #endif
 

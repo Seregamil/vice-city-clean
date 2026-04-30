@@ -152,8 +152,6 @@ enum Config {
 // We don't expect to compile for PS2 or Xbox
 // but it might be interesting for documentation purposes
 #define GTA_PC
-//#define GTA_PS2
-//#define GTA_XBOX
 
 // Version defines
 #define GTAVC_PS2	400
@@ -173,13 +171,7 @@ enum Config {
 //#define GTA3_STEAM_PATCH
 //#define GTAVC_JP_PATCH
 
-#if defined GTA_PS2
-#	define GTA_PS2_STUFF
-#	define RANDOMSPLASH
-//#	define USE_CUSTOM_ALLOCATOR
-#	define VU_COLLISION
-#	define PS2_MENU
-#elif defined GTA_PC
+#if defined GTA_PC
 #	define EXTERNAL_3D_SOUND
 #	define AUDIO_REVERB
 #	ifndef GTA_HANDHELD
@@ -190,7 +182,6 @@ enum Config {
 #	define PC_MENU
 #	define PC_WATER
 #	define GTA_PC_CONTROLS	// enables keyboard and mouse. currently GTA_PC and a few other defines will not work without this
-#elif defined GTA_XBOX
 #elif defined GTA_MOBILE
 #	define MISSION_REPLAY
 #	define SIMPLER_MISSIONS
@@ -498,9 +489,6 @@ static_assert(false, "SUPPORT_XBOX_SCRIPT and SUPPORT_MOBILE_SCRIPT are mutually
 
 #if defined(AUDIO_OAL) && !defined(EXTERNAL_3D_SOUND)
 #error AUDIO_OAL cannot work without EXTERNAL_3D_SOUND
-#endif
-#if defined(GTA_PS2) && defined(EXTERNAL_3D_SOUND)
-#error EXTERNAL_3D_SOUND cannot work on PS2
 #endif
 
 #endif // __GTA_CONFIG_H__

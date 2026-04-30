@@ -62,9 +62,7 @@ cAudioManager::InitialisePoliceRadio()
 	m_sPoliceRadioQueue.Reset();
 	for (int32 i = 0; i < ARRAY_SIZE(m_aCrimes); i++)
 		m_aCrimes[i].type = CRIME_NONE;
-#if !defined(GTA_PS2) || defined(AUDIO_REVERB)
-	SampleManager.SetChannelReverbFlag(CHANNEL_POLICE_RADIO, FALSE);
-#endif
+
 	gSpecialSuspectLastSeenReport = FALSE;
 	for (int32 i = 0; i < ARRAY_SIZE(gMinTimeToNextReport); i++)
 		gMinTimeToNextReport[i] = m_FrameCounter;
