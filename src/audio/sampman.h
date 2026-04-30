@@ -7,39 +7,24 @@
 #define MAX_FREQ DIGITALRATE
 
 struct tSample {
-#ifndef GTA_PS2
 	uint32 nOffset;
-#endif
 	uint32 nSize;
 	uint32 nFrequency;
-#ifndef GTA_PS2
 	uint32 nLoopStart;
 	int32 nLoopEnd;
-#endif
 };
 
-#ifdef GTA_PS2
-#define PS2BANK(e) e
-#else
 #define PS2BANK(e) e = SFX_BANK_0
-#endif // GTA_PS2
-
 
 enum
 {
 	SFX_BANK_0,
-#ifdef GTA_PS2
-	SFX_BANK_GENERIC_EXTRA,
-	SFX_BANK_PED_COMMENTS,
-	SFX_BANK_FRONT_END_MENU,
-#else
 	SFX_BANK_GENERIC_EXTRA = SFX_BANK_0,
 	SFX_BANK_FRONT_END_MENU = SFX_BANK_0,
 
 	SFX_BANK_PED_COMMENTS,
 	MAX_SFX_BANKS,
 	INVALID_SFX_BANK,
-#endif
 
 	CAR_SFX_BANKS_OFFSET,
 	SFX_BANK_PONTIAC = CAR_SFX_BANKS_OFFSET,
@@ -111,10 +96,6 @@ enum
 	PS2BANK(SFX_BANK_FOOTSTEPS_METAL),
 	PS2BANK(SFX_BANK_FOOTSTEPS_WATER),
 	PS2BANK(SFX_BANK_FOOTSTEPS_SAND),
-#ifdef GTA_PS2
-	MAX_SFX_BANKS,
-	INVALID_SFX_BANK
-#endif
 };
 #define MAX_PEDSFX                 7
 #define PED_BLOCKSIZE              79000
@@ -214,7 +195,7 @@ public:
 	void  UnloadSampleBank  (uint8 nBank);
 	int8  IsSampleBankLoaded(uint8 nBank);
 
-#if defined (GTA_PS2) || defined (FIX_BUGS)
+#if defined (FIX_BUGS)
 	uint8 IsMissionAudioLoaded(uint8 nSlot, uint32 nSample);
 	bool8 LoadMissionAudio    (uint8 nSlot, uint32 nSample);
 #endif
@@ -254,11 +235,7 @@ public:
 	bool8 StartStreamedFile                         (tTrack nFile, uint32 nPos, uint8 nStream = 0);
 	void  StopStreamedFile                                                     (uint8 nStream = 0);
 	int32 GetStreamedFilePosition                                              (uint8 nStream = 0);
-#ifdef GTA_PS2
-	void  SetStreamedVolumeAndPan(uint8 nVolume, uint8 nLRPan, uint8 nFRPan, bool8 nEffectFlag, uint8 nStream = 0);
-#else
 	void  SetStreamedVolumeAndPan(uint8 nVolume, uint8 nPan, bool8 nEffectFlag, uint8 nStream = 0);
-#endif
 	int32 GetStreamedFileLength                                                (uint8 nStream = 0);
 	bool8 IsStreamPlaying                                                      (uint8 nStream = 0);
 	void  SetStreamedFileLoopFlag                             (bool8 nLoopFlag, uint8 nStream = 0);

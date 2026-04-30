@@ -45,11 +45,7 @@ void cParticleSystemMgr::LoadParticleData()
 			++lineEnd;
 		
 		int32 lineLength = lineEnd - lineStart;
-#ifdef GTA_PS2
-		// CRs are left untouched. we assume every line ends in one
-		lineLength--;
-#endif
-		
+
 		ASSERT(lineLength < 500);
 
 		strncpy(line, lineStart, lineLength);
