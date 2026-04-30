@@ -349,10 +349,6 @@ enum Config {
 #define FIX_RADAR			// use radar size from early version before R* broke it
 #define RADIO_OFF_TEXT		// Won't work without FIX_BUGS
 
-#ifndef PC_MENU
-#	define PS2_MENU
-//#	define PS2_MENU_USEALLPAGEICONS
-#else
 #	define MAP_ENHANCEMENTS			// Adding waypoint and better mouse support
 #	if defined(XINPUT) || defined(GTA_HANDHELD)
 #		define GAMEPAD_MENU		// Add gamepad menu
@@ -372,7 +368,6 @@ enum Config {
 #		define INVERT_LOOK_FOR_PAD // enable the hidden option
 #		define PED_CAR_DENSITY_SLIDERS
 #	endif
-#endif
 
 // Script
 #define USE_DEBUG_SCRIPT_LOADER	// Loads main.scm by default. Hold R for main_freeroam.scm and D for main_d.scm
