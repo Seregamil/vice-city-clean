@@ -46,7 +46,6 @@ long _dwOperatingSystemVersion;
 #include "Frontend.h"
 #include "Game.h"
 #include "PCSave.h"
-#include "MemoryCard.h"
 #include "Sprite2d.h"
 #include "AnimViewer.h"
 #include "Font.h"
