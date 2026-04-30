@@ -124,7 +124,11 @@ cAudioManager::Service()
 		m_bTimerJustReset = FALSE;
 	}
 	if (m_bIsInitialised) {
+#ifndef DISABLE_PAUSE_WORLD
 		m_bWasPaused = m_bIsPaused;
+#else
+		m_bWasPaused = false;
+#endif
 		m_bIsPaused = CTimer::GetIsUserPaused();
 #ifdef AUDIO_REFLECTIONS
 		UpdateReflections();

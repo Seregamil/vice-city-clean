@@ -42,10 +42,40 @@ public:
 	static void SetTimeScale(float ts) { ms_fTimeScale = ts; }
 	static uint32 GetCyclesPerFrame();
 
-	static bool GetIsPaused() { return m_UserPause || m_CodePause; }
-	static bool GetIsUserPaused() { return m_UserPause; }
-	static bool GetIsCodePaused() { return m_CodePause; }
-	static void SetCodePause(bool pause) { m_CodePause = pause; }
+	static bool GetIsPaused()
+	{
+#ifdef DISABLE_PAUSE_WORLD
+		return false;
+#else
+		return m_UserPause || m_CodePause;
+#endif
+	}
+
+	static bool GetIsUserPaused()
+	{
+#ifdef DISABLE_PAUSE_WORLD
+		return false;
+#else
+		return m_UserPause;
+#endif
+	}
+
+	static bool GetIsCodePaused()
+	{
+#ifdef DISABLE_PAUSE_WORLD
+		return false;
+#else
+		return m_CodePause;
+#endif
+	}
+	static void SetCodePause(bool pause)
+	{
+#ifdef DISABLE_PAUSE_WORLD
+		m_CodePause = false;
+#else
+		m_CodePause = pause;
+#endif
+	}
 	
 	static void Initialise(void);
 	static void Shutdown(void);
